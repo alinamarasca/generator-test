@@ -1,8 +1,0 @@
-make separate tests for each
-put all necessary elements into variables
-create commands:
-bvb check input field -input type
-                  -placeholder
-                  -cursor state
-                  -focus state
-

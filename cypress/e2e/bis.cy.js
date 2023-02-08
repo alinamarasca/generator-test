@@ -55,7 +55,6 @@ describe("BIS component", () => {
         .get(form.dataForm)
         .get("form")
         .eq(0)
-        .as("gender")
         .within(() => {
           cy.checkYesNoRadio();
         });
@@ -113,7 +112,6 @@ describe("BIS component", () => {
     it("form has submit btn", () => {
       cy.get("@bis").get("[id$=bis-generate-button]").contains("Generate");
     });
-    // it("submit btn makes API call", () => {});
 
     it("submit btn makes API call", () => {
       cy.openAccordion(commonObject.testElements.bis);

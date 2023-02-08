@@ -1,0 +1,9 @@
+- i think i could use 'for each' in some cases - maybe in case of checking that accordions work, generate btn works and etc
+- i find it a bit weird to write function that toggles text in commands(discussed yesterday, sort of)
+ because we can't see what was tested precisely as if it was with "it"
+- i feel that input fields check can be optimized
+- i should use common object more
+- sometimes i have problem with variables for elements:
+ i fail to select the right one so i used cy.get(smth).get(smth)
+- it is hard-ish to understand what exactly needs to be tested and when is enough
+
