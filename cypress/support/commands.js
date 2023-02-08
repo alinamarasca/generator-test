@@ -1,6 +1,11 @@
 import { accordion, form, response } from "../fixtures/aliases";
 import { commonObject } from "../page-objects/commonPage";
 
+// HELPERS
+Cypress.Commands.add("openAccordion", commonObjectName => {
+  cy.get(commonObjectName).click();
+});
+
 // FORM
 Cypress.Commands.add("radioAnswer", labelText => {
   cy.get(form.radioInput);
@@ -62,4 +67,24 @@ Cypress.Commands.add("toggleDescription", (formAlias, togglerAlias) => {
 
   cy.get(`@${formAlias}`).get(form.openedCollapsedText).should("be.visible");
   cy.get(`@${togglerAlias}`).click();
+});
+
+// RADIO
+Cypress.Commands.add("checkYesNoRadio", () => {
+  cy.get(form.radioInput).eq(0).and("has.value", "true").as("a");
+  cy.get(form.radioInput).eq(1).and("has.value", "false").as("b");
+  cy.get("@a").check();
+  cy.get("@a").should("be.checked");
+  cy.get("@b").should("not.be.checked");
+  cy.get("@b").check();
+  cy.get("@b").should("be.checked");
+  cy.get("@a").should("not.be.checked");
+});
+
+// API
+Cypress.Commands.add("countApiCalls", (alias, expectedAmount) => {
+  cy.wait(2000);
+  cy.get(`@${alias}.all`).then(interceptions => {
+    expect(interceptions).to.have.length(expectedAmount);
+  });
 });

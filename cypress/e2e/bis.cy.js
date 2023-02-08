@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 
 import { accordion, form, response } from "../fixtures/aliases";
+import { commonObject } from "../page-objects/commonPage";
 
 describe("BIS component", () => {
   context("is proper accordion", () => {
@@ -48,7 +49,19 @@ describe("BIS component", () => {
         });
     });
 
-    it("form has birthdate field", () => {
+    it("'gender' radio selection selects one answer", () => {
+      cy.openAccordion(commonObject.testElements.bis);
+      cy.get("@bis")
+        .get(form.dataForm)
+        .get("form")
+        .eq(0)
+        .as("gender")
+        .within(() => {
+          cy.checkYesNoRadio();
+        });
+    });
+
+    it("form has 'birthdate' field", () => {
       cy.get("@bis").get(accordion.body).get("form").eq(1).as("bd");
       cy.get("@bd").contains("isBirthdateKnown");
       cy.get("@bd")
@@ -63,7 +76,18 @@ describe("BIS component", () => {
         .within(() => {
           cy.radioAnswer("No");
         });
-      // it("selects radio btn", () => {});
+    });
+
+    it("'birthday' radio selection selects one answer", () => {
+      cy.openAccordion(commonObject.testElements.bis);
+      cy.wait(500);
+      cy.get("@bis")
+        .get(form.dataForm)
+        .get("form")
+        .eq(0)
+        .within(() => {
+          cy.checkYesNoRadio();
+        });
     });
 
     it("form has 'date' field", () => {
@@ -90,6 +114,12 @@ describe("BIS component", () => {
       cy.get("@bis").get("[id$=bis-generate-button]").contains("Generate");
     });
     // it("submit btn makes API call", () => {});
+
+    it("submit btn makes API call", () => {
+      cy.openAccordion(commonObject.testElements.bis);
+      cy.get("@bis").get("[id$=bis-generate-button]").click();
+      // HOW DO I CHECK THAT API CALL WAS MADE WITHOUT SPECIFICS?
+    });
   });
 
   context("shows generated data", () => {
