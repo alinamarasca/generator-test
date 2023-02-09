@@ -24,7 +24,8 @@ Cypress.Commands.add("toggleContent", alias => {
     cy.get(accordion.body).should("not.be.visible");
     cy.get(".accordion-header").click();
     cy.get(form.submitButton).should("be.enabled");
-    cy.get(form.numberInput).eq(0).type(58);
+    // need to type big number to avoid using 'cy.wait'
+    cy.get(form.numberInput).eq(0).type(58231457);
     cy.get(".accordion-header").click();
     cy.get(accordion.body).should("not.be.visible");
   });
@@ -38,6 +39,13 @@ Cypress.Commands.add("showsResponse", alias => {
     cy.get(`@${alias}`).get(response.responseField);
     cy.get(response.responseField).get(response.copyResponseButton);
   });
+});
+
+// RESPONSE
+Cypress.Commands.add("submitForm", alias => {
+  cy.get(form.response).should("not.exist");
+  cy.get(form.submitButton).click();
+  cy.get(form.response);
 });
 
 // SHOWS NOTIFICATION
