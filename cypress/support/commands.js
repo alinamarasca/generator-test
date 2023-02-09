@@ -96,3 +96,22 @@ Cypress.Commands.add("countApiCalls", (alias, expectedAmount) => {
     expect(interceptions).to.have.length(expectedAmount);
   });
 });
+
+// CHANGE TEXT
+Cypress.Commands.add("infoTogglerText", element => {
+  cy.get(element).contains("More info");
+  cy.get(element).click();
+  cy.get(element).contains("Less info");
+  cy.get(element).should("not.contain", "More");
+  cy.get(element).click();
+  cy.get(element).should("not.contain", "Less");
+});
+
+// TOGGLE EXTRA TEXT
+Cypress.Commands.add("collapseText", (element, toggler) => {
+  cy.get(element).should("not.exist");
+  cy.get(toggler).click();
+  cy.get(element).should("be.visible");
+  cy.get(toggler).click();
+  cy.get(element).should("not.exist");
+});

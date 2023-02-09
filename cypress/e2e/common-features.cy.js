@@ -97,23 +97,26 @@ describe("common features", () => {
       testItems.forEach(item => {
         cy.openAccordion(commonObject.header[item]);
       });
+      cy.get(`${".info:has('#insz, #kbo')"}`).as("testEls");
     });
 
-    it("toggle extra information", () => {
-      cy.get(`${".info:has('#insz, #kbo')"}`).each((item, index) => {
+    it("shows description and link to toggle description", () => {
+      cy.get("p").first().should("not.be.empty");
+      cy.get(form.toggleText).should("be.visible");
+    });
+
+    it("changes toggler text", () => {
+      cy.get(`@testEls`).each((item, index) => {
         cy.wrap(item).within(() => {
-          cy.get("p").first().as("info");
+          cy.infoTogglerText(form.toggleText);
+        });
+      });
+    });
 
-          cy.get(form.toggleText).should("be.visible");
-
-          cy.get(form.toggleText).contains("More info");
-          cy.get(form.toggleText).click();
-          cy.get(form.toggleText).contains("Less info");
-          cy.get(form.toggleText).should("not.contain", "More");
-          cy.get(form.toggleText).click();
-          cy.get(form.toggleText).should("not.contain", "Less");
-
-          cy.get(`@info`).get(form.openedCollapsedText).should("be.visible");
+    it("toggles extra text paragraph", () => {
+      cy.get(`@testEls`).each((item, index) => {
+        cy.wrap(item).within(() => {
+          cy.collapseText(form.openedCollapsedText, form.toggleText);
         });
       });
     });
