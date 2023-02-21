@@ -1,5 +1,6 @@
 export const accordion = {
-  header: ".accordion-item > .accordion header",
+  component: ".accordion",
+  header: ".accordion header",
   headerButton: ".accordion-button",
   collapsedContainer: ".accordion-collapse .collapse",
   openedContainer: ".accordion-collapse .collapse .show",
@@ -8,16 +9,24 @@ export const accordion = {
 
 export const form = {
   infoSection: ".info",
-  initialText: ".info p:first-of-type",
+  initialText: ".info > p",
+  toggleText: "a",
   collapsedText: ".collapse",
   openedCollapsedText: ".collapse.show",
-  dataForm: ".accordion-body form:first-of-type",
+  dataForm: ".accordion-collapse > .accordion-body:first-child",
+  question: ".form-control",
   radioAnswer: ".form-check",
   radioInput: "input[type='radio']",
   numberInput: "input[type='number']",
   dateInput: "input[type='date']",
   label: "label.form-check-label",
-  submitButton: "button[type='submit']"
+  submitButton: "button[type='submit']",
+  response: "pre",
+  firstInnerForm:
+    ":nth-child(1) > :nth-child(1) > :nth-child(1) > .form-control",
+  secondInnerForm:
+    ":nth-child(1) > :nth-child(1) > :nth-child(2) > .form-control",
+  inputInnerForm: ".form-floating"
 };
 
 export const response = {
