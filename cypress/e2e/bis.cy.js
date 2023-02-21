@@ -112,12 +112,6 @@ describe("BIS component", () => {
     it("form has submit btn", () => {
       cy.get("@bis").get("[id$=bis-generate-button]").contains("Generate");
     });
-
-    it("submit btn makes API call", () => {
-      cy.openAccordion(commonObject.testElements.bis);
-      cy.get("@bis").get("[id$=bis-generate-button]").click();
-      // HOW DO I CHECK THAT API CALL WAS MADE WITHOUT SPECIFICS?
-    });
   });
 
   context("shows generated data", () => {
