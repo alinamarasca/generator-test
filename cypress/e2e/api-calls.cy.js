@@ -21,9 +21,16 @@ describe(
           "GET",
           "**/bis?isGenderKnown=true&isBirthdateKnown=true"
         ).as("allKnown");
+
         cy.openAccordion(commonObject.header.bis);
         cy.get("@bis").get("[id$=bis-generate-button]").click();
-        cy.wait("@allKnown").its("response.statusCode").should("eq", 200);
+        cy.wait("@allKnown").then(res => {
+          let body = res.response.body.bis[0];
+          cy.get(form.response).contains(body);
+
+          let status = res.response.statusCode;
+          expect(status).to.eq(200);
+        });
         cy.openAccordion(commonObject.header.bis);
       });
     });
